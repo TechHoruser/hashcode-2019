@@ -53,3 +53,14 @@ class DataVisualizer:
         coordinates = list(map(list, zip(*coordinates)))
         pyplot.scatter(coordinates[0], coordinates[1])
 
+    @classmethod
+    def plotbox(cls,link,dataArray):
+        numerics = []
+        for element in dataArray:
+            if link['numeric'] not in element:
+                continue
+
+            numerics.append(element[link['numeric']])
+
+        pyplot.boxplot(numerics, vert=False)
+
