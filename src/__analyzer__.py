@@ -41,19 +41,26 @@ collection = DataVisualizer.StructureCollection([
         ],
     },
     {
-        "plot": "box",
+        "plot": "boxes",
         "elements": [
             {"numeric": "number1"},
         ],
     },
     {
-        "plot": "box",
+        "plot": "boxes",
         "elements": [
             {"numeric": "number2"},
         ],
     },
     {
         "plot": "box",
+        "elements": [
+            {"numeric": "number1"},
+            {"numeric": "number2"},
+        ],
+    },
+    {
+        "plot": "boxes",
         "elements": [
             {"numeric": "number1"},
             {"numeric": "number2"},
