@@ -1,5 +1,6 @@
 from matplotlib import pyplot
 from matplotlib.backends.backend_pdf import PdfPages
+from src import Entities
 
 class StructureCollection:
     def __init__(self, linkData):
@@ -17,12 +18,16 @@ class DataVisualizer:
         for link in collection.linkData:
             for linkElement in link['elements']:
                 eval('DataVisualizer.plot'+link['plot']+'(linkElement,collection.dataArray)')
+
+            # Uso de listas de compresión para los títulos
+            print(' - '.join([''.join(linkElement.values()) for linkElement in link['elements']]))
+            pyplot.title(' - '.join([''.join(linkElement.values()) for linkElement in link['elements']]))
             pyplot.savefig(pp, format='pdf')
             pyplot.close()
         pp.close()
 
     @classmethod
-    def plotbar(cls,link,dataArray):
+    def plotbars(cls,link,dataArray):
         sumArray = {}
         for element in dataArray:
             if link['type'] not in element:
