@@ -16,8 +16,11 @@ class DataVisualizer:
     def getPdf(cls, filename:str, collection:StructureCollection):
         pp = PdfPages('../data/'+filename+'.pdf')
         for link in collection.linkData:
-            for linkElement in link['elements']:
-                eval('DataVisualizer.plot'+link['plot']+'(linkElement,collection.dataArray)')
+            if link['plot'] in ['bars', 'coordinates', 'box']:
+                for linkElement in link['elements']:
+                    eval('DataVisualizer.plot'+link['plot']+'(linkElement,collection.dataArray)')
+            elif link['plot'] in ['boxes']:
+                eval('DataVisualizer.plot' + link['plot'] + '(link,collection.dataArray)')
 
             # Uso de listas de compresión para los títulos
             pyplot.title(' - '.join([''.join(linkElement.values()) for linkElement in link['elements']]))
@@ -52,4 +55,35 @@ class DataVisualizer:
         # Trasponemos el array bidimensional para realizar el plot de coordenadas
         coordinates = list(map(list, zip(*coordinates)))
         pyplot.scatter(coordinates[0], coordinates[1])
+
+    @classmethod
+    def plotboxes(cls,link,dataArray):
+        boxes = []
+        labels = []
+
+        for linkElement in link['elements']:
+            numerics = []
+
+            for element in dataArray:
+                if linkElement['numeric'] not in element:
+                    continue
+
+                numerics.append(element[linkElement['numeric']])
+
+            boxes.append(numerics)
+            labels.append(linkElement['numeric'])
+
+        pyplot.boxplot(boxes, labels=labels, vert=False)
+
+    @classmethod
+    def plotbox(cls,link,dataArray):
+        numerics = []
+
+        for element in dataArray:
+            if link['numeric'] not in element:
+                continue
+
+            numerics.append(element[link['numeric']])
+
+        pyplot.boxplot(numerics, vert=False)
 
