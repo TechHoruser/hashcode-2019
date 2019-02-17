@@ -20,7 +20,6 @@ class DataVisualizer:
                 eval('DataVisualizer.plot'+link['plot']+'(linkElement,collection.dataArray)')
 
             # Uso de listas de compresión para los títulos
-            print(' - '.join([''.join(linkElement.values()) for linkElement in link['elements']]))
             pyplot.title(' - '.join([''.join(linkElement.values()) for linkElement in link['elements']]))
             pyplot.savefig(pp, format='pdf')
             pyplot.close()
@@ -38,6 +37,19 @@ class DataVisualizer:
             else:
                 sumArray[element[link['type']]] = 1
 
-        pyplot.title(link['type'])
         pyplot.bar(sumArray.keys(), sumArray.values())
+
+    @classmethod
+    def plotcoordinates(cls,link,dataArray):
+        coordinates = []
+        for element in dataArray:
+            if link['coordinate'] not in element:
+                continue
+
+            coordinate = element[link['coordinate']] # type: Entities.Coordinate
+            coordinates.append(coordinate.getArray())
+
+        # Trasponemos el array bidimensional para realizar el plot de coordenadas
+        coordinates = list(map(list, zip(*coordinates)))
+        pyplot.scatter(coordinates[0], coordinates[1])
 
