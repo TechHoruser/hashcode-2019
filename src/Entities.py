@@ -1,90 +1,27 @@
-class Coordinate:
-    def __init__(self, x=None, y=None, z=None):
-        self.x = x
-        self.y = y
-        self.z = z
+class Photo:
+    H = 0
+    V = 1
 
-    def getArray(self):
-        returnedArray = []
-        for property, value in vars(self).items():
-            if value is not None:
-                returnedArray.append(value)
-
-        return returnedArray
-
-class Node:
-    def __init__(self, id, coordinate):
+    def __init__(self, id, type, tags = []):
         self.id = id
-        self.coordinate = coordinate
+        self.type = type
+        self.tags = tags
 
-class Stage:
-    def __init__(self, maxTime, products, drones, warehouses, orders):
-        self.maxTime = maxTime
-        self.products = products
-        self.drones = drones
-        self.warehouses = warehouses
-        self.orders = orders
-        self.t = 0
+class Slide:
+    def __init__(self, photo1, photo2):
+        self.photo1 = photo1
+        self.photo2 = photo2
 
-    def getRestTime(self):
-        return self.maxTime - self.t
+class SlideShow:
+    def __init__(self, slides = []):
+        self.slides = slides
 
-class Product:
-    def __init__(self, id, weight):
-        self.id = id
-        self.weight = weight
 
-class Drone:
-    def __init__(self, id, maxWeight, coordinate):
-        self.id = id
-        self.maxWeight = maxWeight
-        self.coordinate = coordinate
-        self.actualWeight = 0
-        self.products = []
-        self.working = 0
+    def addSlide(self, slide : Slide):
+        self.slides.append(slide)
 
-    def addProducts(self, products):
-        weightOfProducts = sum([product.weight for product in products])
-        if self.actualWeight + weightOfProducts > Drone.MAX_WEIGHT:
-            raise Exception('Peso maximo del dron '+str(self.id)+' superado')
+    def getStringToFile(self):
+        output = str(len(self.slides));
+        for slide in self.slides:
+            output
 
-        self.products.extend(products)
-        self.actualWeight += weightOfProducts
-
-class Warehouse:
-    def __init__(self, id, coordinate, products = []):
-        self.id = id
-        self.coordinate = coordinate
-        self.products = products
-
-    def addProducts(self, products):
-        self.products.extend(products)
-
-    def rmProducts(self, products):
-        self.products = [product for product in self.products if product.id not in products]
-
-class Order:
-    def __init__(self, id, coordinate, products = []):
-        self.id = id
-        self.coordinate = coordinate
-        self.products = products
-        self.done = False
-
-    def addProducts(self, products):
-        self.products.extend(products)
-
-class Action:
-    def __init__(self, dronId, type, idDestiny = None, productId = None, productNumber = None, time = None):
-        self.dronId= dronId
-        self.type= type
-        self.idDestiny = idDestiny
-        self.productId = productId
-        self.productNumber = productNumber
-        self.time = time
-
-class OutputCollection:
-    def __init__(self):
-        self.actions = []
-
-    def addActions(self, actions):
-        self.actions.extend(actions)

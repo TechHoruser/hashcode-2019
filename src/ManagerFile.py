@@ -5,7 +5,7 @@ class ManagerFile:
         self.__fileName = fileName
 
     def simpleLoadFile(self, separator = ' '):
-        with open('../data/in/'+self.__fileName + '.in') as f:
+        with open('../data/in/'+self.__fileName + '.txt') as f:
             content = f.readlines()
 
         return [(line.replace("\n",'')).split(separator) for line in content]
