@@ -13,10 +13,15 @@ class Coordinate:
         return returnedArray
 
 class Stage:
-    def __init__(self):
+    def __init__(self, maxTime):
+        self.maxTime = maxTime
+        self.t = 0
         self.drones = []
         self.warehouses = []
         self.orders = []
+
+    def getRestTime(self):
+        return self.maxTime - self.t
 
 class Product:
     def __init__(self, id, weight):
@@ -24,10 +29,9 @@ class Product:
         self.weight = weight
 
 class Drone:
-    MAX_WEIGHT = 1
-
-    def __init__(self, id, coordinate):
+    def __init__(self, id, maxWeight, coordinate):
         self.id = id
+        self.maxWeight = maxWeight
         self.coordinate = coordinate
         self.actualWeight = 0
         self.products = []
@@ -59,3 +63,19 @@ class Order:
         self.coordinate = coordinate
         self.products = products
         self.done = False
+
+class Action:
+    def __init__(self, dronId, type, idDestiny = None, productId = None, productNumber = None, time = None):
+        self.dronId= dronId
+        self.type= type
+        self.idDestiny = idDestiny
+        self.productId = productId
+        self.productNumber = productNumber
+        self.time = time
+
+class OutputCollection:
+    def __init__(self):
+        self.actions = []
+
+    def addActions(self, actions):
+        self.actions.extend(actions)
