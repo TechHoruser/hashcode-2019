@@ -8,7 +8,7 @@ class Photo:
         self.tags = tags
 
 class Slide:
-    def __init__(self, photo1, photo2):
+    def __init__(self, photo1, photo2 = None):
         self.photo1 = photo1
         self.photo2 = photo2
 
@@ -21,7 +21,10 @@ class SlideShow:
         self.slides.append(slide)
 
     def getStringToFile(self):
-        output = str(len(self.slides));
+        output = str(len(self.slides))+"\n"
         for slide in self.slides:
-            output
+            if slide.photo2 is None:
+                output += str(slide.photo1.id) + "\n"
+            else:
+                output += str(slide.photo1.id) + str(slide.photo2.id) + "\n"
 

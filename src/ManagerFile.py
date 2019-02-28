@@ -36,3 +36,8 @@ class ManagerFile:
             delimiter=" ",
             fmt="%s",
         )
+
+    def saveStringFile(self, outputString):
+        text_file = open('../data/out/'+self.__fileName + '.out', "w")
+        text_file.write(outputString)
+        text_file.close()
