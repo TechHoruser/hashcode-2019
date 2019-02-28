@@ -32,7 +32,7 @@ class BaseAlgorithms:
             verticalPhotos.remove(bestVPhoto)
             slides.append(Slide(photoActual, bestVPhoto))
 
-        slideShow = SlideShow()
+        slideShow = SlideShow([])
         slideShow.addSlide(slides[0])
         slideActual = slides[0]
         slides.remove(slides[0])
@@ -41,9 +41,9 @@ class BaseAlgorithms:
             print(len(slides))
             maxSlide = None
             maxScore = -1
-            numeroRandom = 10
+            numeroRandom = 1000
             if len(slides)<numeroRandom:
-                numeroRandom=1
+                numeroRandom=len(slides)
             for slideComparando in random.sample(slides, numeroRandom):
             #for slideComparando in slides:
                 score = Utils.calcScoreBetweenSlides(slideActual, slideComparando)

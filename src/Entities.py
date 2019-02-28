@@ -34,8 +34,8 @@ class SlideShow:
         output = str(len(self.slides))+"\n"
         for slide in self.slides:
             if slide.photo2 is None:
-                output += str(slide.photo1.id) + "\n"
+                output += str(slide.photo1.id-1) + "\n"
             else:
-                output += str(slide.photo1.id) + " "+str(slide.photo2.id) + "\n"
+                output += str(slide.photo1.id-1) + " "+str(slide.photo2.id-1) + "\n"
         return output
 
