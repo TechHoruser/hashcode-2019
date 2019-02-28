@@ -21,7 +21,7 @@ class BaseAlgorithms:
         slideShow.addSlide(slides[0])
         slideActual = slides[0]
 
-        while len(slideShow.slides) != len(slides):
+        while len(slides)>0:
             maxSlide = None
             maxScore = -1
             for slideComparando in slides:
@@ -30,6 +30,7 @@ class BaseAlgorithms:
                     maxSlide = slideComparando
                     maxScore = score
 
+            slides.remove(maxSlide)
             slideShow.addSlide(maxSlide)
             slideActual = maxSlide
 
