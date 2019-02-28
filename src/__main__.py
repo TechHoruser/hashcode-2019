@@ -31,33 +31,7 @@ for indx, example in enumerate(examples):
 
     photoList = transformInputArray(inputArray)
 
-    #TODO creamos slides
-    slides = []
-    for photo in photoList:
-        #if photo.type == Photo.H:
-        slides.append(Slide(photo))
-        #else
-        #    buscar
+    slideShow = eval('BaseAlgorithms.'+example['algorithm']+'(photoList)') # type: SlideShow
 
-    #comenzamos en la primera y buscamos en bucle la proxima que daria ams puntuacion
+    mf.saveStringFile(slideShow.getStringToFile())
 
-    solucion = [slides[0]]
-    slideActual = slides[0]
-
-    while len(solucion) != len(slides):
-        maxSlide = None
-        maxPuntuacion = -1
-        for slideComparando in slides:
-            if Utils.calcScoreBetweenSlides(slideActual, slideComparando) > maxPuntuacion:
-                maxSlide = slideComparando
-                maxPuntuacion = Utils.calcScoreBetweenSlides(slideActual, slideComparando)
-        solucion.append(maxSlide)
-        slideActual = maxSlide
-    slideShow = SlideShow(solucion)
-    solution = eval('BaseAlgorithms.'+example['algorithm']+'(inputArray)')
-
-    # outputArray = solution
-    #
-    # mf.saveFile(outputArray)
-
-    sleep(0.5)

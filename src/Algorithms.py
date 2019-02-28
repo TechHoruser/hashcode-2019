@@ -6,11 +6,34 @@ import numpy as np
 class BaseAlgorithms:
 
     @classmethod
-    def basic(cls, input) -> SlideShow:
-        # TODO
-        output = ... # type: SlideShow
+    def basic(cls, photoList) -> SlideShow:
 
-        return output
+        slides = []
+        for idx, photo in photoList.items():
+            #if photo.type == Photo.H:
+            slides.append(Slide(photo))
+            #else
+            #    buscar
+
+        #comenzamos en la primera y buscamos en bucle la proxima que daria ams puntuacion
+
+        slideShow = SlideShow()
+        slideShow.addSlide(slides[0])
+        slideActual = slides[0]
+
+        while len(slideShow.slides) != len(slides):
+            maxSlide = None
+            maxScore = -1
+            for slideComparando in slides:
+                score = Utils.calcScoreBetweenSlides(slideActual, slideComparando)
+                if score > maxScore:
+                    maxSlide = slideComparando
+                    maxScore = score
+
+            slideShow.addSlide(maxSlide)
+            slideActual = maxSlide
+
+        return slideShow
 
 
 class Utils:
