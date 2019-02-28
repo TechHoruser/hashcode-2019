@@ -16,15 +16,15 @@ class BaseAlgorithms:
 class Utils:
     @classmethod
     def diffTags(cls, tags1, tags2):
-        return tags1 - tags2
+        return set(tags1) - set(tags2)
 
     @classmethod
     def intersectTags(cls, tags1, tags2):
-        return tags1 - tags2 + tags2 - tags1
+        return (set(tags1) - set(tags2)) | (set(tags2) - set(tags1))
 
     @classmethod
     def unionTags(cls, tags1, tags2):
-        return tags1 + tags2 - tags1
+        return set(tags1) | (set(tags2) - set(tags1))
 
     @classmethod
     def calcScoreBetweenSlides(cls, slide1, slide2):
