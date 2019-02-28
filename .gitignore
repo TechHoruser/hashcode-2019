@@ -1,3 +1,4 @@
 dev_ENV
 data
 src/__pycache__
+.idea
