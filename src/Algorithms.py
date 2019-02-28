@@ -14,10 +14,25 @@ class BaseAlgorithms:
 
 
 class Utils:
+    @classmethod
+    def diffTags(cls, tags1, tags2):
+        return tags1 - tags2
 
     @classmethod
-    def selectBranch(cls, inputArray):
-        return None
+    def intersectTags(cls, tags1, tags2):
+        return tags1 - tags2 + tags2 - tags1
+
+    @classmethod
+    def unionTags(cls, tags1, tags2):
+        return tags1 + tags2 - tags1
+
+    @classmethod
+    def calcScoreBetweenSlides(cls, slide1, slide2):
+        return min(
+            len(Utils.diffTags(slide1.getTags(), slide2.getTags())),
+            len(Utils.unionTags(slide1.getTags(), slide2.getTags())),
+            len(Utils.diffTags(slide2.getTags(), slide1.getTags())),
+        )
 
     @classmethod
     def calculateCost(cls, inputArray):

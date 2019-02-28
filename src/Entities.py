@@ -1,3 +1,5 @@
+from src.Algorithms import *
+
 class Photo:
     H = 0
     V = 1
@@ -11,6 +13,10 @@ class Slide:
     def __init__(self, photo1, photo2 = None):
         self.photo1 = photo1
         self.photo2 = photo2
+
+    def getTags(self):
+        return self.photo1.tags if self.photo2 is None else Utils.unionTags(self.photo1.tags, self.photo2.tags)
+
 
 class SlideShow:
     def __init__(self, slides = []):
