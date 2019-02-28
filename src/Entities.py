@@ -13,12 +13,13 @@ class Coordinate:
         return returnedArray
 
 class Stage:
-    def __init__(self, maxTime):
+    def __init__(self, maxTime, products, drones, warehouses, orders):
         self.maxTime = maxTime
+        self.products = products
+        self.drones = drones
+        self.warehouses = warehouses
+        self.orders = orders
         self.t = 0
-        self.drones = []
-        self.warehouses = []
-        self.orders = []
 
     def getRestTime(self):
         return self.maxTime - self.t

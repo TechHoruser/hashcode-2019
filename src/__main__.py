@@ -17,15 +17,16 @@ def transformInputArray(lines):
     linesByWarehouse = 2
     linesByOrder = 3
 
-    productsList = []
-    warehouseList = []
-    orderList = []
+    dronesList = {}
+    productsList = {}
+    warehouseList = {}
+    orderList = {}
 
     for idx, val in enumerate(lines):
         if idx == 0:
-            dronesNumber = val[2]
-            maxTime = val[3]
-            maxWeight = val[4]
+            dronesNumber = int(val[2])
+            maxTime = int(val[3])
+            maxWeight = int(val[4])
             continue
 
         if idx == 1:
@@ -37,7 +38,7 @@ def transformInputArray(lines):
             continue
 
         if warehouseFounded is False:
-            numberWarehouse = val[0]
+            numberWarehouse = int(val[0])
             idxWarehouse = 0
             lineWarehouse = 0
             warehouseFounded = True
@@ -48,8 +49,8 @@ def transformInputArray(lines):
                 coordinate = Coordinate(val[0], val[1])
             elif lineWarehouse == 1:
                 warehouse = Warehouse(idxWarehouse, coordinate)
-                for idxProduct, productCount in val:
-                    warehouse.addProducts([productsList[idxProduct] for x in range(productCount)])
+                for idxProduct, productCount in enumerate(val):
+                    warehouse.addProducts([productsList[idxProduct] for x in range(int(productCount))])
                 warehouseList[idxWarehouse] = warehouse
 
             lineWarehouse += 1
@@ -59,7 +60,7 @@ def transformInputArray(lines):
             continue
 
         if orderFounded is False:
-            numberOrder = val[0]
+            numberOrder = int(val[0])
             idxOrder = 0
             lineOrder = 0
             orderFounded = True
@@ -70,7 +71,7 @@ def transformInputArray(lines):
                 coordinate = Coordinate(val[0], val[1])
             elif lineOrder == 2:
                 order = Order(idxOrder, coordinate)
-                for idxProduct, productCount in val:
+                for idxProduct, productCount in enumerate(val):
                     order.addProducts([productsList[idxProduct]])
                 orderList[idxOrder] = order
 
@@ -80,6 +81,10 @@ def transformInputArray(lines):
             lineOrder = lineOrder % linesByOrder
             continue
 
+    for x in range(dronesNumber):
+        dronesList[x] = Drone(id, maxWeight, warehouseList[0].coordinate)
+
+    return Stage(maxTime, productsList, dronesList, warehouseList, orderList)
 
 
 for indx, example in enumerate(examples):
