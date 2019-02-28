@@ -12,6 +12,12 @@ class Coordinate:
 
         return returnedArray
 
+class Node:
+    def __init__(self, id, coordinate):
+        self.id = id
+        self.coordinate = coordinate
+
+
 class InputElementsCollection:
     def __init__(self):
         None
