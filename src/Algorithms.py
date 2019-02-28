@@ -17,10 +17,19 @@ class BaseAlgorithms:
             else:
                 verticalPhotos.append(photo)
 
-        # if len(verticalPhotos) > 0:
-        #     photoActual = verticalPhotos[0]
-        #     for vPhoto in verticalPhotos:
-        #
+        if len(verticalPhotos) > 0:
+            minTags = int('Inf')
+            bestVPhoto = None
+            photoActual = verticalPhotos[0]
+            photoActual.remove(photoActual[0])
+            for vPhoto in verticalPhotos:
+                score = Utils.intersectTags(photoActual.tags, vPhoto.tags)
+                if score < minTags:
+                    bestVPhoto = vPhoto
+                    minTags = score
+
+            verticalPhotos.remove(bestVPhoto)
+            slides.append(Slide(photoActual, bestVPhoto))
 
         slideShow = SlideShow()
         slideShow.addSlide(slides[0])
