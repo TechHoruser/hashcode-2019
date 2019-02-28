@@ -9,17 +9,23 @@ class BaseAlgorithms:
     def basic(cls, photoList) -> SlideShow:
 
         slides = []
-        for idx, photo in photoList.items():
-            #if photo.type == Photo.H:
-            slides.append(Slide(photo))
-            #else
-            #    buscar
+        verticalPhotos = []
 
-        #comenzamos en la primera y buscamos en bucle la proxima que daria ams puntuacion
+        for idx, photo in photoList.items():
+            if photo.type == Photo.H:
+                slides.append(Slide(photo))
+            else:
+                verticalPhotos.append(photo)
+
+        # if len(verticalPhotos) > 0:
+        #     photoActual = verticalPhotos[0]
+        #     for vPhoto in verticalPhotos:
+        #
 
         slideShow = SlideShow()
         slideShow.addSlide(slides[0])
         slideActual = slides[0]
+        slides.remove(slides[0])
 
         while len(slides)>0:
             maxSlide = None
