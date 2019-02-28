@@ -4,6 +4,14 @@ class ManagerFile:
     def __init__(self, fileName):
         self.__fileName = fileName
 
+    def simpleLoadFile(self, separator = ' '):
+        with open('../data/in/'+self.__fileName + '.in') as f:
+            content = f.readlines()
+
+        return [(line.replace("\n",'')).split(separator) for line in content]
+
+
+
     def loadStringFile(self):
         return numpy.genfromtxt(
             '../data/in/'+self.__fileName + '.in',

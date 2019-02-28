@@ -4,9 +4,9 @@ from src.Entities import *
 class BaseAlgorithms:
 
     @classmethod
-    def basic(cls, input:InputElementsCollection) -> OutputElementCollection:
+    def basic(cls, input:Stage) -> OutputCollection:
         # TODO
-        output = ... # type: OutputElementCollection
+        output = ... # type: OutputCollection
 
         return output
 

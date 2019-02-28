@@ -64,6 +64,9 @@ class Order:
         self.products = products
         self.done = False
 
+    def addProducts(self, products):
+        self.products.extend(products)
+
 class Action:
     def __init__(self, dronId, type, idDestiny = None, productId = None, productNumber = None, time = None):
         self.dronId= dronId
