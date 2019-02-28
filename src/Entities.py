@@ -1,5 +1,9 @@
 from src.Algorithms import *
 
+
+def unionTags(tags1, tags2):
+    return tags1 | (tags2 - tags1)
+
 class Photo:
     H = 0
     V = 1
@@ -7,7 +11,7 @@ class Photo:
     def __init__(self, id, type, tags = []):
         self.id = id
         self.type = type
-        self.tags = tags
+        self.tags = set(tags)
 
 class Slide:
     def __init__(self, photo1, photo2 = None):
@@ -15,7 +19,7 @@ class Slide:
         self.photo2 = photo2
 
     def getTags(self):
-        return self.photo1.tags if self.photo2 is None else Utils.unionTags(self.photo1.tags, self.photo2.tags)
+        return self.photo1.tags if self.photo2 is None else unionTags(self.photo1.tags, self.photo2.tags)
 
 
 class SlideShow:
@@ -32,5 +36,6 @@ class SlideShow:
             if slide.photo2 is None:
                 output += str(slide.photo1.id) + "\n"
             else:
-                output += str(slide.photo1.id) + str(slide.photo2.id) + "\n"
+                output += str(slide.photo1.id) + " "+str(slide.photo2.id) + "\n"
+        return output
 

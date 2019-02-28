@@ -2,6 +2,7 @@ from scipy import spatial
 from src.Entities import *
 from collections import deque, namedtuple
 import numpy as np
+import random
 
 class BaseAlgorithms:
 
@@ -18,12 +19,12 @@ class BaseAlgorithms:
                 verticalPhotos.append(photo)
 
         if len(verticalPhotos) > 0:
-            minTags = int('Inf')
+            minTags = float('inf')
             bestVPhoto = None
             photoActual = verticalPhotos[0]
-            photoActual.remove(photoActual[0])
+            verticalPhotos.remove(verticalPhotos[0])
             for vPhoto in verticalPhotos:
-                score = Utils.intersectTags(photoActual.tags, vPhoto.tags)
+                score = len(Utils.intersectTags(photoActual.tags, vPhoto.tags))
                 if score < minTags:
                     bestVPhoto = vPhoto
                     minTags = score
@@ -37,9 +38,14 @@ class BaseAlgorithms:
         slides.remove(slides[0])
 
         while len(slides)>0:
+            print(len(slides))
             maxSlide = None
             maxScore = -1
-            for slideComparando in slides:
+            numeroRandom = 10
+            if len(slides)<numeroRandom:
+                numeroRandom=1
+            for slideComparando in random.sample(slides, numeroRandom):
+            #for slideComparando in slides:
                 score = Utils.calcScoreBetweenSlides(slideActual, slideComparando)
                 if score > maxScore:
                     maxSlide = slideComparando
@@ -53,17 +59,18 @@ class BaseAlgorithms:
 
 
 class Utils:
+
     @classmethod
     def diffTags(cls, tags1, tags2):
-        return set(tags1) - set(tags2)
+        return tags1 - tags2
 
     @classmethod
     def intersectTags(cls, tags1, tags2):
-        return (set(tags1) - set(tags2)) | (set(tags2) - set(tags1))
+        return (tags1 - tags2) | (tags2 - tags1)
 
     @classmethod
     def unionTags(cls, tags1, tags2):
-        return set(tags1) | (set(tags2) - set(tags1))
+        return tags1 | (tags2 - tags1)
 
     @classmethod
     def calcScoreBetweenSlides(cls, slide1, slide2):

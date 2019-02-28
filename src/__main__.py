@@ -4,8 +4,8 @@ from src.Algorithms import *
 from src.Entities import *
 
 examples = [
-    # {'fileName': 'a_example', 'algorithm': 'basic', },
-    {'fileName': 'b_lovely_landscapes', 'algorithm': 'basic', },
+     {'fileName': 'a_example', 'algorithm': 'basic', },
+    # {'fileName': 'b_lovely_landscapes', 'algorithm': 'basic', },
     # {'fileName': 'c_memorable_moments', 'algorithm': 'basic', },
     # {'fileName': 'd_pet_pictures', 'algorithm': 'basic', },
     # {'fileName': 'e_shiny_selfies', 'algorithm': 'basic', },
